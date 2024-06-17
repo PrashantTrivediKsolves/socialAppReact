@@ -10,8 +10,6 @@ const PostList = () => {
     fetch("https://dummyjson.com/posts")
       .then((res) => res.json())
       .then((data) => {
-        console.log("All posts");
-        console.log(data);
         addInitialPosts(data.posts);
       });
   };
