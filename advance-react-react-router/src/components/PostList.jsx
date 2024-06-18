@@ -4,7 +4,7 @@ import { Postlist } from "../store/Post-list-stores";
 import WelcomeMessage from "./Welcome";
 import LoadingSpinner from "./LoadingSpinner";
 const PostList = () => {
-  const { postList, addInitialPosts } = useContext(Postlist);
+  const { postList, addInitialPosts, fetching } = useContext(Postlist);
 
   // const [dataFetched, setDataFetched] = useState(false);
   // if (!dataFetched) {
@@ -20,26 +20,6 @@ const PostList = () => {
 
   // Alternative using useEffect........
 
-  const [fetching, setFetching] = useState(false);
-
-  useEffect(() => {
-    setFetching(true);
-    const controller = new AbortController();
-    const signal = controller.signal;
-
-    fetch("https://dummyjson.com/posts", { signal })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("All posts");
-        console.log(data);
-        addInitialPosts(data.posts);
-        setFetching(false);
-      });
-    return () => {
-      console.log("cleaning up useEffect");
-      controller.abort();
-    };
-  }, []);
   return (
     <>
       {fetching && <LoadingSpinner></LoadingSpinner>}
